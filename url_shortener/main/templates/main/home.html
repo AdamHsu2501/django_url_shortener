@@ -35,5 +35,28 @@
     <p><span class="text-danger">Previous URL:</span> {{long_url}}</p>
   </div>
   {% endif %}
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Created</th>
+        <th scope="col">The Original URL</th>
+        <th scope="col">New URL</th>
+        <th scope="col">Followed</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shorter in Shortener %}
+      <tr>
+        <th scope="row">{{shorter.id}}</th>
+        <td>{{ shorter.created }}</td>
+        <td>{{shorter.long_url}}</td>
+        <td><a href="{{url}}{{shorter.short_url}}" target="_blank">{{uri}}{{shorter.short_url}}</a></td>
+        <td>{{shorter.times_followed}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock body %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Shortener
 from .forms import ShortenerForm
@@ -9,14 +9,22 @@ def home(request):
     context = {}
     
     context['form'] = ShortenerForm()
+    context['Shortener'] = Shortener.objects.all()
+    context['uri'] = request.build_absolute_uri('/')
     
     if request.method == 'GET':
+        # Shortener.objects.all().delete()
         return render(request, template, context)
+
     elif request.method == 'POST':
         used_form = ShortenerForm(request.POST)
         if used_form.is_valid():
-            shorten_object = used_form.save()
-            new_url = request.build_absolute_uri('/') + shorten_object.short_url
+            try:
+                shorten_object = Shortener.objects.get(long_url=request.POST['long_url'])
+            except:
+                shorten_object = used_form.save()
+                
+            new_url = context['uri'] + shorten_object.short_url
             long_url = shorten_object.long_url
             context['new_url'] = new_url
             context['long_url'] = long_url

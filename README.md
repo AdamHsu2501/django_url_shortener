@@ -3,7 +3,7 @@
 
 1. Install Python <https://www.python.org/>
 2. cmd ```pip install pipenv```  
-3. cmd ```https://github.com/AdamHsu2501/django_url_shortener.git```
+3. cmd ```git clone https://github.com/AdamHsu2501/django_url_shortener.git```
 3. cmd ```cd django_url_shortener```
 5. cmd ```pipenv install```
 5. cmd ```pipenv shell```
